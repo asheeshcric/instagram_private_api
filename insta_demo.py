@@ -94,13 +94,16 @@ def main():
         # Unfriend people that don't follow back
         print('Unfriending people that don\'t follow back')
         people_unfollowed = unfriend_people(api, followers, following)
-        print('People unfollowed:')
-        for user_id in people_unfollowed:
-            for people in following:
-                if people['pk'] == user_id:
-                    print(
-                        f"User ID: {people['pk']} | {people['username']}: {people['full_name']}")
-                    break
+        if len(people_unfollowed) == 0:
+            print('No one eligible to unfollow')
+        else:
+            print('People unfollowed:')
+            for user_id in people_unfollowed:
+                for people in following:
+                    if people['pk'] == user_id:
+                        print(
+                            f"User ID: {people['pk']} | {people['username']}: {people['full_name']}")
+                        break
 
         success = True
 
