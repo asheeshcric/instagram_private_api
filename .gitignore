@@ -1,3 +1,7 @@
+# Ignore credentials and cookie file
+credentials.json
+user_settings.pickle
+
 .coveragerc
 coverage.sh
 cov_html/
