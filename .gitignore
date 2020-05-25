@@ -1,6 +1,8 @@
 # Ignore credentials and cookie file
 credentials.json
 user_settings.pickle
+followers.json
+following.json
 
 .coveragerc
 coverage.sh
