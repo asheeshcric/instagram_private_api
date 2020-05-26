@@ -1,24 +1,31 @@
 import json
+import os
 import pickle
 
 from instagram_private_api import Client, ClientCompatPatch
 
 
 def get_user_passwd():
-    with open('credentials.json', 'r') as f:
+    global project_path
+    creds_path = os.path.join(project_path, 'credentials.json')
+    with open(creds_path, 'r') as f:
         creds = json.load(f)
 
     return creds['username'], creds['password']
 
 
 def save_settings(user_settings):
-    with open('user_settings.pickle', 'wb') as f:
+    global project_path
+    settings_path = os.path.join(project_path, 'user_settings.pickle')
+    with open(settings_path, 'wb') as f:
         pickle.dump(user_settings, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def get_user_settings():
+    global project_path
+    settings_path = os.path.join(project_path, 'user_settings.pickle')
     try:
-        with open('user_settings.pickle', 'rb') as f:
+        with open(settings_path, 'rb') as f:
             user_settings = pickle.load(f)
 
         return user_settings
@@ -64,6 +71,7 @@ def unfriend_people(api, followers, following):
 
 
 def main():
+    global project_path
     success = False
     username, password = get_user_passwd()
     user_settings = get_user_settings()
@@ -82,12 +90,14 @@ def main():
         rank_token = api.generate_uuid()
 
         # Save all followers to a file
-        with open('followers.json', 'w') as f:
+        followers_path = os.path.join(project_path, 'followers.json')
+        with open(followers_path, 'w') as f:
             followers = get_followers(api, user_id, rank_token)
             json.dump(followers, f)
 
         # Save all following to a file
-        with open('following.json', 'w') as f:
+        following_path = os.path.join(project_path, 'followers.json')
+        with open(following_path, 'w') as f:
             following = get_following(api, user_id, rank_token)
             json.dump(following, f)
 
@@ -109,4 +119,5 @@ def main():
 
 
 if __name__ == '__main__':
+    project_path = '/path/to/project/dir'
     main()
