@@ -123,4 +123,11 @@ if __name__ == '__main__':
     project_path = '/path/to/project/dir'
     now = datetime.datetime.now()
     print(f'Datetime: {now.strftime("%d/%m/%Y %H:%M:%S")}')
-    main()
+    try:
+        main()
+    except Exception as error:
+        # if the cookie expires or cannot login somehow, relogin the user
+        print(error)
+        settings_path = os.path.join(project_path, 'user_settings.pickle')
+        os.remove(settings_path)
+        main()
