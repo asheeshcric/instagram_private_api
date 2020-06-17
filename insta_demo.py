@@ -120,8 +120,10 @@ def main():
 
 
 if __name__ == '__main__':
-    project_path = '/path/to/project/dir'
+    project_path = '/home/pi/Documents/Github/instagram_private_api/'
     now = datetime.datetime.now()
+    print('-----------------------------------------------------------------------')
+    print('-----------------------------------------------------------------------')
     print(f'Datetime: {now.strftime("%d/%m/%Y %H:%M:%S")}')
     try:
         main()
